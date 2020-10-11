@@ -1,0 +1,34 @@
+.d-flex {
+    min-height: 100vh;
+}
+
+.card {
+    border: 1px solid #0069ff;
+}
+
+ul {
+    @media (min-width: 991.98px) {
+        width: 330px;
+    };
+    border: 1px solid #0069ff;
+}
+
+.emi-calculator {
+    @media (max-width: 768px) {
+        margin-top: 15px;
+    }
+}
+
+.warning-center {
+    text-align: center;
+}
+
+.text-centered {
+    @media (max-width: 768px) {
+        text-align: center;
+
+        h4 {
+            float: unset !important;
+        }
+    }
+}

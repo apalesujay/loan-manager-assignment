@@ -1,0 +1,57 @@
+<div class="height-full">
+    <div class="d-flex justify-content-center">
+        <h5 *ngIf="!data">No records to show</h5>
+        <div class="card shadow rounded bg-light mt-3" *ngIf="data">
+            <div class="card-body">
+                <form>
+                    <div class="form-row align-items-center">
+                        <div class="col-auto mb-3 float-right">
+                            <label class="sr-only" for="inlineFormInput">Search</label>
+                            <input type="text" class="form-control mb-2" id="inlineFormInput" (keyup)="search($event)"
+                                placeholder="Search name">
+                        </div>
+                        <div class="col-auto mb-3 float-right">
+                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr class="text-primary">
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scrop="col">Address</th>
+                                <th scope="col">Starts</th>
+                                <th scope="col">Ends</th>
+                                <th scope="col">Principal</th>
+                                <th scope="col">Rate</th>
+                                <th scope="col">EMI</th>
+                                <th scope="col">Amount Payable</th>
+                                <th scope="col">Loan Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let d of showData; let i = index;">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ d.firstName + ' ' + d.lastName }}</td>
+                                <td>{{ d.mobile }}</td>
+                                <td>{{ d.email }}</td>
+                                <td>{{ d.address }}</td>
+                                <td>{{ d.start.replace('-','/') }}/01</td>
+                                <td>{{ d.end.replace('-','/') }}/01</td>
+                                <td>&#8377;{{ d.principal }}</td>
+                                <td>{{ d.rate }}%</td>
+                                <td>&#8377;{{ d.emi }}</td>
+                                <td>&#8377;{{ d.emi * d.months }}</td>
+                                <td>{{ d.type ? 'Floating' : 'Fixed' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

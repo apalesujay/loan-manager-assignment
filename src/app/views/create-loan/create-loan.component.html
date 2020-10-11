@@ -1,0 +1,143 @@
+<div class="d-flex justify-content-center align-items-center">
+  <!-- Loan Info form -->
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card shadow rounded bg-light">
+        <div class="card-body text-primary">
+          <h2 class="card-title">
+            Loan Details
+          </h2>
+          <hr>
+          <form [formGroup]="emiForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="start-date">Starts from</label>
+                <input type="month" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': emiForm.get('start-date').touched && emiForm.get('start-date').hasError('required') }" (change)="onChange()" id="start-date" min="{{ minimumCalendar }}" max="{{ maximumCalendar }}" formControlName="start-date" required>
+                <div class="invalid-feedback" *ngIf="emiForm.get('start-date').touched && emiForm.get('start-date').hasError('required')">
+                  Please select start date
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="end-date">Ends At</label>
+                <input type="month" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': emiForm.get('end-date').touched && (emiForm.get('end-date').hasError('required') || emiForm.get('end-date').hasError('small')) }" (change)="onChange()" id="end-date"  min="{{ minimumCalendar }}" max="{{ maximumCalendar }}" formControlName="end-date" required>
+                <div class="invalid-feedback">
+                  {{ emiForm.get('end-date').hasError('required') ? 'Please select end date' : 'End date must be greater than start date' }}
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12">
+                <label for="loan-amount">Loan Amount</label>
+                <input type="range" class="custom-range is-invalid" [ngClass]="{ 'is-invalid': emiForm.get('loan-amount').touched && emiForm.get('loan-amount').hasError('required') }" (change)="onChange()" min="{{ minimumLoanAmount }}" max="2000000" step="100000" id="loan-amount" formControlName="loan-amount" required>
+                <div class="invalid-feedback">
+                  Please select loan amount
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="loan-amount-figure"></label>
+                <input type="text" class="form-control form-control-sm" id="loan-amount-figure" value="&#8377;{{ principal }}" disabled>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12">
+                <label for="interest-rate">Interest Rate</label>
+                <input type="range" class="custom-range" [ngClass]="{ 'is-invalid': emiForm.get('interest-rate').touched && emiForm.get('interest-rate').hasError('required') }" (change)="onChange()" min="{{ minimumInterestRate }}" max="20" step="0.1" id="interest-rate" formControlName="interest-rate" required>
+                <div class="invalid-feedback">
+                  Please select loan amount
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="interest-rate-figure"></label>
+                <input type="text" class="form-control form-control-sm" id="interest-rate-figure" value="{{ rate }}%" disabled>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md mb-12">
+                <div class="custom-control custom-checkbox float-right">
+                  <input type="checkbox" class="custom-control-input" (change)="onChange()" id="floating-loan" formControlName="floating-loan">
+                  <label class="custom-control-label" for="floating-loan">Floating</label>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <button class="btn btn-block btn-primary" type="submit" [disabled]="!emiForm.valid">Next</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show calculated values -->
+    <div class="col-md-5 emi-calculator">
+
+      <!-- Show if floating = true -->
+      <ul class="list-group mb-3" *ngIf="floating">
+        <li class="list-group-item bg-light">
+          <p class="text-warning warning-center">WARNING: Interest rate for the floating loan may vary over the duration hence EMI can not be calculated for the floating loans ahead of the time</p>
+        </li>
+      </ul>
+
+      <ul class="list-group text-centered">
+        <li class="list-group-item bg-light">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="text-black-50">Principal</strong>
+            </div>
+            <div class="col-md-8">
+              <h4 class="float-right text-primary">&#8377;{{ principal }}</h4>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item bg-light">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="text-black-50">Rate</strong>
+            </div>
+            <div class="col-md-8">
+              <h4 class="float-right text-primary">{{ rate }}%</h4>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item bg-light">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="text-black-50">Months</strong>
+            </div>
+            <div class="col-md-8">
+              <h4 class="float-right text-primary">{{ months }}</h4>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item bg-light">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="text-black-50">EMI</strong>
+            </div>
+            <div class="col-md-8">
+              <h4 class="float-right text-primary">&#8377;{{ emi }}</h4>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item bg-light">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="text-black-50">Interest<br><small>({{ months }} months)</small></strong>
+            </div>
+            <div class="col-md-8">
+              <h4 class="float-right text-primary">&#8377;{{ emi ? total - principal : 0 }}</h4>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item bg-light">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="text-black-50">Payable<br><small class="text-xs">({{ months }} months)</small></strong>
+            </div>
+            <div class="col-md-8">
+              <h4 class="float-right text-primary">&#8377;{{ total }}</h4>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

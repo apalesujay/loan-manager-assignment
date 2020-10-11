@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center align-items-center">
+  <!-- Personal Info form -->
+  <div class="card shadow rounded bg-light">
+    <div class="card-body text-primary">
+      <h2 class="card-title">
+        Contact Details
+      </h2>
+      <hr>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="first-name">First name</label>
+            <input type="text" class="form-control form-control-sm" id="first-name" [ngClass]="{ 'is-invalid': contactForm.get('first-name').touched && (contactForm.get('first-name').hasError('required') || contactForm.get('first-name').hasError('maxlength')) }" formControlName="first-name" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('first-name').hasError('required') ? 'First name is required' : 'Maximum 20 characters allowed' }}
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="last-name">Last name</label>
+            <input type="text" class="form-control form-control-sm" id="last-name" [ngClass]="{ 'is-invalid': contactForm.get('last-name').touched && (contactForm.get('last-name').hasError('required') || contactForm.get('last-name').hasError('maxlength')) }" formControlName="last-name" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('last-name').hasError('required') ? 'Last name is required' : 'Maximum 20 characters allowed' }}
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-5 mb-3">
+            <label for="mobile-no">Mobile No.</label>
+            <input type="text" class="form-control form-control-sm" id="mobile-no"  [ngClass]="{ 'is-invalid': contactForm.get('mobile-no').touched && (contactForm.get('mobile-no').hasError('required') || contactForm.get('mobile-no').hasError('min') || contactForm.get('mobile-no').hasError('max')) }" formControlName="mobile-no" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('mobile-no').hasError('required') ? 'Mobile number is required' : 'Invalid mobile number' }}
+            </div>
+          </div>
+          <div class="col-md-7 mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control form-control-sm" id="email"  [ngClass]="{ 'is-invalid': contactForm.get('email').touched && (contactForm.get('email').hasError('required') || contactForm.get('email').hasError('email')) }" formControlName="email" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('email').hasError('required') ? 'Email is required' : 'Invalid email' }}
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="address">Address</label>
+            <input type="text" class="form-control form-control-sm" id="address"  [ngClass]="{ 'is-invalid': contactForm.get('address').touched && (contactForm.get('address').hasError('required') || contactForm.get('address').hasError('maxlength')) }" formControlName="address" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('address').hasError('required') ? 'Address is required' : 'Maximum 200 characters allowed' }}
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="city">City</label>
+            <input type="text" class="form-control form-control-sm" id="city"  [ngClass]="{ 'is-invalid': contactForm.get('city').touched && (contactForm.get('city').hasError('required') || contactForm.get('city').hasError('maxlength')) }" formControlName="city" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('city').hasError('required') ? 'City is required' : 'Maximum 30 characters allowed' }}
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="state">State</label>
+            <input type="text" class="form-control form-control-sm" id="state" [ngClass]="{ 'is-invalid': contactForm.get('state').touched && (contactForm.get('state').hasError('required') || contactForm.get('state').hasError('maxlength')) }" formControlName="state" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('state').hasError('required') ? 'State is required' : 'Maximum 30 characters allowed' }}
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="pin-code">Pin</label>
+            <input type="text" class="form-control form-control-sm" id="pin-code" [ngClass]="{ 'is-invalid': contactForm.get('pin').touched && (contactForm.get('pin').hasError('required') || contactForm.get('pin').hasError('min') || contactForm.get('pin').hasError('max')) }" formControlName="pin" required>
+            <div class="invalid-feedback">
+              {{ contactForm.get('pin').hasError('required') ? 'Pin is required' : 'Invalid pin' }}
+            </div>
+          </div>
+        </div>
+        <hr>
+        <button class="btn btn-block btn-primary">Create Loan</button>
+      </form>
+    </div>
+  </div>
+</div>

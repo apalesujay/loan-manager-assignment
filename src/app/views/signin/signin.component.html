@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center align-items-center">
+    <!-- Personal Info form -->
+    <div class="card shadow rounded">
+      <div class="card-body text-primary">
+        <h2 class="card-title">
+          SIGN IN
+        </h2>
+        <hr>
+        <form [formGroup]="signinForm" (ngSubmit)="signIn()">
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="email">Email</label>
+              <input type="email" class="form-control form-control-sm" id="email" [ngClass]="{ 'is-invalid': signinForm.get('email').touched && (signinForm.get('email').hasError('required') || signinForm.get('email').hasError('email')) }" formControlName="email" required>
+              <div class="invalid-feedback">
+                {{ signinForm.get('email').hasError('required') ? 'Email is required' : 'Invalid email' }}
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="password">Password</label>
+              <input type="password" class="form-control form-control-sm" id="password"  [ngClass]="{ 'is-invalid': signinForm.get('password').touched && (signinForm.get('password').hasError('required') || signinForm.get('password').hasError('minlength')) }" formControlName="password" required>
+              <div class="invalid-feedback">
+                {{ signinForm.get('password').hasError('required') ? 'Password is required' : 'Password must contain atleast 7 characters' }}
+              </div>
+            </div>
+          </div>
+          <hr>
+          <button class="btn btn-block btn-primary" [disabled]="!signinForm.valid">Signin</button>
+        </form>
+      </div>
+    </div>
+  </div>

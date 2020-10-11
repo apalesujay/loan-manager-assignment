@@ -1,0 +1,10 @@
+.d-flex {
+    min-height: 100vh;
+}
+
+.card {
+    @media (min-width: 991.98px) {
+        width: 640px;
+    }
+    border: 1px solid #0069ff;
+}
